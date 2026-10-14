@@ -1,0 +1,43 @@
+EdexUi-2026
+Copyright (C) 2026 Ali-A-Alwahed
+2026 maintainer of this continuation
+
+Copyright (C) 2017 Gabriel "Squared" Saillard and the eDEX-UI contributors
+https://github.com/GitSquared/edex-ui
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+details.
+
+EdexUi-2026 is a maintained continuation of the original eDEX-UI project and
+is derived from it. It is distributed under the terms of the GNU General
+Public License version 3 or later, as required for derivative works.
+
+The full text of the licence is reproduced verbatim in the LICENSE file.
+
+This file is the project copyright notice referenced by the GNU General
+Public License. It records the copyright holders, the licence and the
+upstream origin of this work.
+
+Special thanks
+---------------
+
+- Rob "arscan" Scanlon - author of the ENCOM Globe fork bundled in
+  src/assets/vendor/encom-globe.js, which also embeds three.js (MIT)
+- Hyder6112 - early contributions and help reviving the project
+- Ahmed Adnan - patches, packaging fixes and continued support
+
+Third-party dependencies
+------------------------
+
+Third-party dependencies retain their own licences. Per-dependency licence
+information is recorded in CREDITS.md.
+
+Source
+------
+
+https://github.com/Ali-A-Alwahed/EdexUi-2026

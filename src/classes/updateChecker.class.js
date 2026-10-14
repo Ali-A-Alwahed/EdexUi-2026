@@ -1,0 +1,73 @@
+class UpdateChecker {
+    constructor() {
+        let https = require("https");
+        let electron = require("electron");
+        let remote = require("@electron/remote");
+        let current = remote.app.getVersion();
+        let repo = "Ali-A-Alwahed/EdexUi-2026";
+
+        this._failed = false;
+        this._willfail = false;
+        this._fail = e => {
+            this._failed = true;
+            electron.ipcRenderer.send("log", "note", "UpdateChecker: Could not fetch latest release from GitHub's API.");
+            electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
+        };
+
+        https.get({
+            protocol: "https:",
+            host: "api.github.com",
+            path: `/repos/${repo}/releases/latest`,
+            headers: {
+                "User-Agent": "EdexUi-2026 UpdateChecker"
+            }
+        }, res => {
+            switch(res.statusCode) {
+                case 200:
+                    break;
+                case 404:
+                    this._fail("Got 404 (Not Found) response from server");
+                    break;
+                default:
+                    this._willfail = true;
+            }
+
+            let rawData = "";
+
+            res.on('data', chunk => {
+                rawData += chunk;
+            });
+
+            res.on('end', () => {
+                let d = rawData;
+                if (this._failed === true) {
+                    // Do nothing, it already failed
+                } else if (this._willfail) {
+                    this._fail(d.toString());
+                } else {
+                    try {
+                        let release = JSON.parse(d.toString());
+                        if (release.tag_name.slice(1) === current) {
+                            electron.ipcRenderer.send("log", "info", "UpdateChecker: Running latest version.");
+                        } else if (Number(release.tag_name.slice(1).replace(/\./g, "")) < Number(current.replace("-pre", "").replace(/\./g, ""))) {
+                            electron.ipcRenderer.send("log", "info", "UpdateChecker: Running an unreleased, development version.");
+                        } else {
+                            if (typeof window.showReleaseUpdateNotice === "function") {
+                                window.showReleaseUpdateNotice(release);
+                            }
+                            electron.ipcRenderer.send("log", "info", `UpdateChecker: New version ${release.tag_name} available.`);
+                        }
+                    } catch(e) {
+                        this._fail(e);
+                    }
+                }
+            });
+        }).on('error', e => {
+            this._fail(e);
+        });
+    }
+}
+
+module.exports = {
+    UpdateChecker
+};

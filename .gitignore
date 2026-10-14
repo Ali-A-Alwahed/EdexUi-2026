@@ -1,0 +1,59 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Coverage / test output
+coverage/
+.nyc_output/
+lib-cov/
+
+# Build output
+dist/
+release/
+out/
+prebuild-src/
+
+# Native module build artifacts
+build/Release/
+*.node
+
+# Electron / electron-builder caches
+.cache/
+electron-builder/
+
+# Signing material and secrets (NEVER commit)
+.env
+.env.*
+!.env.signing.example
+*.p12
+*.pfx
+*.cer
+*.mobileprovision
+*.keystore
+
+# Editor / OS cruft
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Screenshot / local scratch
+screenshots-local/
+*.tmp
+*.bak

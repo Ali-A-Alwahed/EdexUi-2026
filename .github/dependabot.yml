@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "03:00"
+      timezone: "UTC"
+    target-branch: "main"
+    open-pull-requests-limit: 10
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/src"
+    schedule:
+      interval: "daily"
+      time: "03:00"
+      timezone: "UTC"
+    target-branch: "main"
+    open-pull-requests-limit: 10
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"

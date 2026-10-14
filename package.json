@@ -1,0 +1,150 @@
+{
+  "name": "edexui-2026",
+  "productName": "EdexUi-2026",
+  "version": "2026.4.22",
+  "description": "EdexUi-2026 is a maintained, open-source continuation of the original eDEX-UI experience.",
+  "keywords": [
+    "desktop",
+    "sci-fi",
+    "gui",
+    "portable",
+    "tty",
+    "terminal"
+  ],
+  "main": "src/_boot.js",
+  "scripts": {
+    "start": "env -u ELECTRON_RUN_AS_NODE ELECTRON_OZONE_PLATFORM_HINT=x11 electron --ozone-platform=x11 src",
+    "start:fast": "env -u ELECTRON_RUN_AS_NODE ELECTRON_OZONE_PLATFORM_HINT=x11 electron --ozone-platform=x11 src --nointro",
+    "install-linux": "npm install && cd src && npm install --legacy-peer-deps && npx electron-rebuild -f -w node-pty && cd ..",
+    "preinstall-windows": "npm install --global --production windows-build-tools && npm install --global node-gyp && setx PYTHON \"%USERPROFILE%\\.windows-build-tools\\python27\\python.exe\"",
+    "install-windows": "npm install && cd src && npm install --legacy-peer-deps && npx electron-rebuild -f -w node-pty && cd ..",
+    "prebuild-linux": "rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && cd prebuild-src && npm install --legacy-peer-deps",
+    "prebuild-darwin": "rsync -a src/ prebuild-src --exclude node_modules && node prebuild-minify.js && cd prebuild-src && npm install --legacy-peer-deps",
+    "prebuild-windows": "rmdir /S /Q prebuild-src 2>nul & mkdir prebuild-src && xcopy src\\* prebuild-src\\ /E /C /Q /Y && node prebuild-minify.js && cd prebuild-src && npm install --legacy-peer-deps",
+    "build-linux": "./node_modules/.bin/electron-builder build -l --x64",
+    "build-darwin": "./node_modules/.bin/electron-builder build -m",
+    "build-windows": "node_modules\\.bin\\electron-builder build -w",
+    "postbuild-linux": "rm -R prebuild-src",
+    "postbuild-darwin": "rm -R prebuild-src",
+    "postbuild-windows": "rmdir /S /Q prebuild-src",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "audit": "npm audit --omit=dev --audit-level=critical && cd src && npm audit --omit=dev --audit-level=critical"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ali-A-Alwahed/EdexUi-2026.git"
+  },
+  "author": {
+    "name": "Ali-A-Alwahed",
+    "email": "ali.a.alwahed@users.noreply.github.com"
+  },
+  "contributors": [
+    "Gabriel \"Squared\" Saillard (original creator of eDEX-UI)",
+    "Hyder6112 (special thanks)",
+    "Ahmed Adnan (special thanks)"
+  ],
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Ali-A-Alwahed/EdexUi-2026/issues"
+  },
+  "homepage": "https://github.com/Ali-A-Alwahed/EdexUi-2026#readme",
+  "build": {
+    "appId": "com.edexui2026.app",
+    "productName": "EdexUi-2026",
+    "publish": "github",
+    "asar": true,
+    "compression": "normal",
+    "copyright": "Copyright © 2026 Ali-A-Alwahed. Based on the original eDEX-UI by Gabriel Squared Saillard and upstream contributors. Special thanks to Hyder6112 and Ahmed Adnan.",
+    "directories": {
+      "output": "dist",
+      "app": "prebuild-src"
+    },
+    "forceCodeSigning": false,
+    "npmRebuild": true,
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}/**",
+      "!**/node_modules/*/*.md",
+      "!**/node_modules/**/test{,s}/**",
+      "!**/.git",
+      "!**/.github",
+      "!**/dist",
+      "!**/node_modules/.cache"
+    ],
+    "artifactName": "EdexUi-2026-v${version}-${os}-${arch}.${ext}",
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "maintainer": "Ali-A-Alwahed <ali.a.alwahed@users.noreply.github.com>",
+      "category": "System",
+      "icon": "media/linuxIcons"
+    },
+    "rpm": {
+      "fpm": [
+        "--rpm-compression",
+        "gzip"
+      ]
+    },
+    "appImage": {
+      "artifactName": "EdexUi-2026-v${version}-Linux-${arch}.AppImage"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "public.app-category.utilities",
+      "icon": "media/icon.icns"
+    },
+    "dmg": {
+      "artifactName": "EdexUi-2026-v${version}-macOS-${arch}.dmg"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "media/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "EdexUi-2026-v${version}-Windows-${arch}.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true
+    }
+  },
+  "dependencies": {
+    "clean-css": "^5.3.3",
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3",
+    "node-json-minify": "^3.0.0",
+    "terser": "^5.51.2"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.2.1",
+    "vitest": "^5.0.4"
+  },
+  "optionalDependencies": {
+    "cson-parser": "^4.0.9",
+    "dmg-license": "^1.0.11"
+  },
+  "overrides": {
+    "sprintf-js": "^1.1.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
