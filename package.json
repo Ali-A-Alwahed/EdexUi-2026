@@ -135,7 +135,7 @@
   },
   "devDependencies": {
     "@electron/rebuild": "^4.2.1",
-    "vitest": "^5.0.4"
+    "vitest": "^5.0.5"
   },
   "optionalDependencies": {
     "cson-parser": "^4.0.9",
