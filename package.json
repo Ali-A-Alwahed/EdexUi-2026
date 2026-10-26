@@ -129,7 +129,7 @@
   "dependencies": {
     "clean-css": "^5.3.3",
     "electron": "^44.7.0",
-    "electron-builder": "^26.15.3",
+    "electron-builder": "^26.18.0",
     "node-json-minify": "^3.0.0",
     "terser": "^5.51.2"
   },
