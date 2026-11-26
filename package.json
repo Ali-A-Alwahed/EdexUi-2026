@@ -131,7 +131,7 @@
     "electron": "^45.2.3",
     "electron-builder": "^26.15.3",
     "node-json-minify": "^3.0.0",
-    "terser": "^5.51.2"
+    "terser": "^5.51.4"
   },
   "devDependencies": {
     "@electron/rebuild": "^4.2.1",
